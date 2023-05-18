@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sito per i Blog</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Sito per i Blog</h1>
+    </header>
+
+    <div class="content">
+        <div id="blog-form">
+            <h2>Aggiungi un nuovo blog</h2>
+            <form id="add-blog-form">
+                <label for="author">Autore:</label>
+                <input type="text" id="author" required>
+
+                <label for="title">Titolo:</label>
+                <input type="text" id="title" required>
+
+                <label for="content">Contenuto:</label>
+                <textarea id="content" required></textarea>
+
+                <input type="submit" value="Aggiungi blog">
+            </form>
+        </div>
+
+        <div id="blog-list">
+            <h2>Elenco dei blog</h2>
+            <ul id="blogs"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Funzione per gestire l'aggiunta di un blog
+        function addBlog(event) {
+            event.preventDefault();
+
+            // Ottenere i valori dal form
+            var authorInput = document.getElementById("author");
+            var titleInput = document.getElementById("title");
+            var contentInput = document.getElementById("content");
+            var author = authorInput.value;
+            var title = titleInput.value;
+            var content = contentInput.value;
+
+            // Creare un elemento li per il nuovo blog
+            var newBlog = document.createElement("li");
+            newBlog.innerHTML = "<h3>" + title + "</h3><p>" + content + "</p><p class='author'>Autore: " + author + "</p>";
+
+            // Ottenere la lista dei blog
+            var blogList = document.getElementById("blogs");
+
+            // Inserire il nuovo blog all'inizio della lista dei blog
+            if (blogList.firstChild) {
+                blogList.insertBefore(newBlog, blogList.firstChild);
+            } else {
+                blogList.appendChild(newBlog);
+            }
+
+            // Ripulire il form
+            authorInput.value = "";
+            titleInput.value = "";
+            contentInput.value = "";
+        }
+
+        // Aggiungere l'evento di submit al form
+        var addBlogForm = document.getElementById("add-blog-form");
+        addBlogForm.addEventListener("submit", addBlog);
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        #blog-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #blog-form h2 {
+            margin-top: 0;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #blog-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #blogs {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #blogs li {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        #blogs li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        #blogs li h3 {
+            color: #333;
+            margin: 0;
+        }
+
+        #blogs li p {
+            color: #666;
+            margin: 0;
+        }
+
+        .author {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 12px;
+        }
+    </style>
+</body>
+</html>
